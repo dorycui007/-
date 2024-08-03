@@ -80,10 +80,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="media">
 
       <p class="spaced-text"><h3>姓名: {{ patient[1] }}
-        <h6><button onclick="deletePatient('{{ patient_id }}')", style='background-color:red'>删除患者</button></h6></h3>
+        <h6><button onclick="deletePatient('{{ patient_id }}')", style="background-color: #ff9999">删除患者</button>
+          <button onclick="updatePatient('{{ patient_id }}')", style="background-color: #99ff99">更改患者</button>
+        </h6></h3>
       <p class="spaced-text"><h5>患者 ID: {{ patient_id }} </h5></p>
       <p class="spaced-text"><h5>注册时间 : {{ patient[6]}} | 性别: {{ patient[2]}} | 年龄: {{ patient[3] }}</h5></p>
-      <p class="spaced-text"><h5>手机: {{ patient[5] }}  |  备注: {{ patient[7] }} </h5><hr></p>
+      <p class="spaced-text"><h5>电话: {{ patient[5] }}  |  备注: {{ patient[7] }} </h5><hr></p>
+        <script>
+          function updatePatient(patient_id) {
+            window.location.href = "/patient/{{ patient_id }}/update-patient"
+          }
+        </script>
         <script> 
           function deletePatient(patient_id) { 
             var txt; 
@@ -104,13 +111,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <ul id="myUL"> 
           {% for symptom in symptoms %}
               <h5><p class="spaced-text"> 
-              <li><p>症状 ID: {{ symptom[0] }}</p>
+              <li><p>症状 ID: {{ symptom[0] }}
+                <button onclick="deleteSymptom('{{ symptom[0] }}')" style="background-color: #ff9999">删除症状</button>
+                <button onclick="updateSymptom('{{ symptom[0] }}')" style="background-color: #99ff99">更改症状</button>
+              </p>
                 时间: {{ symptom[6] }} | 主诉: {{ symptom[2] }} | 临床诊断: {{ symptom[3] }}</li></p></h5> 
               <h5><p class="spaced-text"> 治疗过程: {{ symptom[4] }} </p> 
                   <p class="spaced-text">备注: {{ symptom[5] }}
-              <button onclick="deleteSymptom('{{ symptom[0] }}')", style='background-color:red'>删除症状</button></p></h5> 
+            </p></h5> 
           {% endfor %} 
         </ul> 
+        <script>
+        function updateSymptom(symptomId) {
+          window.location.href = "/patient/{{ patient_id }}/" + symptomId + "/update-symptom"
+        }
+        </script>
         <script> 
         function deleteSymptom(symptomId) { 
           var txt; 

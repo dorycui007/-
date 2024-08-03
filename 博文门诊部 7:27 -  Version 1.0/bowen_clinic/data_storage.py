@@ -43,12 +43,25 @@ class Patient:
 
     def delete_patient(self, patient_id, current_time):
         name = self.storage[patient_id][1]
-        del self.storage[patient_id]
+        del self.storage[patient_id] 
         clinic_storage_manager.clinic_storage.modify_system_log(f"删除患者 - | 时间: {current_time} | 患者 ID: {patient_id} | 名字: {name} |") 
         clinic_storage_manager.clinic_storage.save_json(self.storage, self.filename)
 
         # Once the patient is removed from the system
         # The symptom data should be removed also 
+
+        # Identify all symptom_ids relating to patient_id
+        symptom_ids = [symptom_id[0] for symptom_id in patient_symptom_storage.storage[patient_id]]
+        print(symptom_ids)
+        for symptom_id in symptom_ids:
+            del patient_symptom_storage.symptom_storage[symptom_id]
+        
+        # Delete patient from the storage
+        del patient_symptom_storage.storage[patient_id]
+
+        # Save changes
+        clinic_storage_manager.clinic_storage.save_json(patient_symptom_storage.storage, patient_symptom_storage.filename)
+        clinic_storage.save_csv(patient_symptom_storage.symptom_storage, "patient_symptom_record.csv") 
 
         # Removing symptom data 
         if patient_id in patient_symptom_storage.storage.keys():

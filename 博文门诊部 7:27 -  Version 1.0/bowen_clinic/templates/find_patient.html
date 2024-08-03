@@ -163,23 +163,38 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div>
 
   <input type="text" id="myInput" onkeyup="myFunction()" placeholder="请输入姓名.." title="Type in a name">
-         <ul id ="myUL">
+
+
+        
+          <ul id="myUL">
             {% for item in items|reverse %}
-              <li><a href="/patient/{{ item }}">姓名: {{ items[item][1] }}  |  性别: {{ items[item][2] }}  |  年龄: {{ items[item][3] }}  |  电话: {{ items[item][5] }}  |  时间: {{ items[item][6] }}  |</a></li><br>
+            <li>
+                <a href="/patient/{{ item }}">
+                    时间: {{ items[item][6] }} |
+                    姓名: <span class="patient-name">{{ items[item][1] }}</span> |
+                    性别: {{ items[item][2] }} |
+                    年龄: {{ items[item][3] }} |
+                    年龄: {{ items[item][3] }}  |  电话: {{ items[item][5] }}
+                </a >
+            </li>
             {% endfor %}
         </ul>
+
 
         <script>
           function myFunction() {
               var input, filter, ul, li, a, i, txtValue;
               input = document.getElementById("myInput");
-              filter = input.value.toUpperCase();
+              filter = input.value; // Removed toUpperCase()
               ul = document.getElementById("myUL");
               li = ul.getElementsByTagName("li");
+
               for (i = 0; i < li.length; i++) {
                   a = li[i].getElementsByTagName("a")[0];
-                  txtValue = a.textContent || a.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  var nameElement = a.getElementsByClassName("patient-name")[0];
+                  txtValue = nameElement.textContent || nameElement.innerText;
+                  
+                  if (txtValue.indexOf(filter) > -1) { // Removed toUpperCase()
                       li[i].style.display = "";
                   } else {
                       li[i].style.display = "none";

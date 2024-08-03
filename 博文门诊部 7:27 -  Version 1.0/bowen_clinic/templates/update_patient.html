@@ -27,17 +27,18 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s8 w3-bar">
-      <span>欢迎，崔美娟</span><br>
+      <span>欢迎， 崔美娟</span><br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
     </div>
   </div>
   <hr>
-
+  
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="/" class="w3-bar-item w3-button w3-padding">主页</a>
+
     <footer class="site-footer">
         <div class="container">
           <div class="row">
@@ -58,7 +59,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       
       </div>
       </div>
-  
+      
+      </footer>
+  </div>
 </nav>
 
 
@@ -68,92 +71,64 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
-  <div class="content-section">
-    <fieldset class="form-group">
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">添加患者</legend>
-            <div class="form-group">
-                <p class="text-muted">名字</p>
-                {% if form.name.errors %}
-                    <div class="invalid-feedback">
-                        {% for error in form.name.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.name(autocomplete="off", class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            
-            <div class="form-group">
-                <p class="text-muted">性别</p>
-              {% if form.gender.errors %}
-                  {{ form.gender(class="form-control form-control-lg is-invalid") }}
-                  <div class="invalid-feedback">
-                      {% for error in form.gender.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                  </div>
-              {% else %}
-                  {{ form.gender(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">更改患者信息</legend>
 
-            <div class="form-group">
-                <p class="text-muted">出生年份</p>
-              {% if form.birth_year.errors %}
-                  {{ form.birth_year(class="form-control form-control-lg is-invalid") }}
-                  <div class="invalid-feedback">
-                      {% for error in form.birth_year.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                  </div>
-              {% else %}
-                  {{ form.birth_year(class="form-control form-control-lg") }}
-              {% endif %}
-            </div>
 
-            <div class="form-group">
-                <p class="text-muted">手机号</p>
-                {% if form.phone.errors %}
-                    {{ form.phone(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.phone.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.phone(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
+                <div class="form-group">
+                    <p class="text-muted">姓名</p>
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg", value=name) }}
+                    {% endif %}
+                </div>
 
-            <div class="form-group">
-                <p class="text-muted">备注</p>
-                {% if form.medical_record.errors %}
-                    {{ form.medical_record(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.medical_record.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.medical_record(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
 
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-    </form>
+                <div class="form-group">
+                    <p class="text-muted">电话</p>
+                    {% if form.phone.errors %}
+                        {{ form.phone(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.phone(class="form-control form-control-lg", value=phone) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <p class="text-muted">备注</p>
+                    {% if form.medical_record.errors %}
+                        {{ form.medical_record(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.medical_record.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.medical_record(class="form-control form-control-lg", value=medical_record) }}
+                    {% endif %}
+                </div>
+                <br>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-</fieldset>
 <script>
     // Get the Sidebar
     var mySidebar = document.getElementById("mySidebar");

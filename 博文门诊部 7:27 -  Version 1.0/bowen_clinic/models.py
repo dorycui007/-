@@ -14,7 +14,7 @@ class Doctor:
         self.doctor_id = doctor_id
         self.name = name 
         self.gender = gender 
-        self.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.time = datetime.now().strftime("%Y-%m-%d")
     
     def __str__(self):
         return f"医生 - | 医生 ID: {self.medicine_id} | 名字: {self.name} | 性别: {self.gender} |"
@@ -24,7 +24,7 @@ class Doctor:
         data_storage.doctor_storage.store_new_doctor(self.doctor_id, [self.name, self.gender, self.time])
 
     def delete_doctor(self, doctor_id):
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now().strftime("%Y-%m-%d")
         clinic_storage.modify_system_log(f"删除医生 - | {current_time:^20} | 医生 ID: {doctor_id:^5} |")
         data_storage.doctor_storage.delete_doctor(str(doctor_id), current_time)
 
@@ -40,7 +40,7 @@ class Patient:
         self.gender = gender
         self.age = 0
         self.phone = phone 
-        self.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.time = datetime.now().strftime("%Y-%m-%d")
         self.medical_record = medical_record 
 
     def __str__(self):
@@ -55,7 +55,7 @@ class Patient:
         clinic_storage_manager.clinic_storage.save_json(data_storage.patient_symptom_storage.storage, "patient_symptom_record.json")
 
     def delete_patient(self, patient_id):
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now().strftime("%Y-%m-%d")
         clinic_storage.modify_system_log(f"删除患者 - | {current_time:^20} | 患者 ID: {patient_id:^5} |")
         data_storage.patient_storage.delete_patient(patient_id, current_time) 
 
@@ -72,7 +72,7 @@ class Patient_Symptom:
         self.diagnosis = diagnosis
         self.treatment_course = treatment_course
         self.note = note
-        self.diagnosis_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.diagnosis_time = datetime.now().strftime("%Y-%m-%d")
 
     def __str__(self):
         return f"患者 - | 时间: {self.diagnosis_time} | 患者 ID: {self.patient_id} | 主诉: {self.complaint} | 临床诊断: {self.diagnosis} | 治疗过程: {self.treatment_course} | 备注: {self.note} |"
