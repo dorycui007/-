@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% if title %}
+        <title>博文门诊部 - {{ title }}</title>
+    {% else %}
+        <title>博文门诊部</title>
+    {% endif %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css'>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right">博文门诊部</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s8 w3-bar">
+      <span>欢迎，崔美娟</span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="/" class="w3-bar-item w3-button w3-padding">主页</a>
+    <footer class="site-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <script>
+                    function displayCurrentYear() {
+                        var currentYear = new Date().getFullYear();
+                        document.getElementById("current-year").textContent = currentYear;
+                    }
+                    window.onload = displayCurrentYear; // 当页面加载完毕时显示年份
+                </script>
+
+              <p class="copyright-text">Copyright © <span id="current-year"></span> 博文门诊部</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+      
+      </div>
+      </div>
+  
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:400px;margin-top:43px;">
+
+  <div class="content-section">
+    
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+           <h4> <legend class="border-bottom mb-4">添加患者症状</legend></h4>
+            <div class="form-group">
+                <p class="text-muted">主诉</p>
+                {% if form.complaint.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.complaint.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.complaint(autocomplete="off", class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <p class="text-muted">临床诊断</p>
+              {% if form.diagnosis.errors %}
+                  {{ form.diagnosis(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.diagnosis.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.diagnosis(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+                <p class="text-muted">治疗过程</p>
+              {% if form.treatment_course.errors %}
+                  {{ form.treatment_course(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.treatment_course.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.treatment_course(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+                <p class="text-muted">备注</p>
+                {% if form.note.errors %}
+                    {{ form.note(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.note.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.note(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+              
+              <div class="form-group">
+                <p class="text-muted">时间/日期</p >
+                    {% if form.time.errors %}
+                        {{ form.time(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.time.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <i class="far fa-calendar-alt"></i>
+                    {{ form.time(class="form-container form-control-lg", type="text", placeholder="请选择日期", class="date-input") }}
+                {% endif %}
+              </div>
+
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+    
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+    
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+      if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+      } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+      }
+    }
+    
+    // Close the sidebar with the close button
+    function w3_close() {
+      mySidebar.style.display = "none";
+      overlayBg.style.display = "none";
+    }
+    </script>
+
+<script>
+  class Calendar {
+    constructor(inputSelector) {
+        this.input = document.querySelector(inputSelector);
+        this.form = this.input.parentElement;
+        this.popupContainer = null;
+        this.monthContainer = null;
+        this.tableContainer = null;
+        this.table = document.createElement("table");
+        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        this.selectedMonth = new Date().getMonth();
+        this.selectedYear = new Date().getFullYear();
+        
+        this.buildCalendar();
+        this.setMainEventListener();
+    }
+    
+    buildCalendar() {
+        this.popupContainer = document.createElement("div");
+        this.popupContainer.classList.add("calendar-popup");
+        this.form.appendChild(this.popupContainer);
+
+        
+        this.monthContainer = document.createElement("div");
+        this.monthContainer.classList.add("month-and-year");
+        this.monthContainer.innerHTML = `<h4>${this.getMonth()} ${this.getYear()}</h4>`;
+        this.popupContainer.appendChild(this.monthContainer);
+
+        this.createButtons();
+
+        this.populateTable(this.selectedMonth, this.selectedYear);
+    }
+
+    createButtons() {
+        const prev = document.createElement("button");
+        prev.classList.add('button', 'prev');
+        prev.innerHTML = "<i class='fas fa-chevron-left'></i>";
+        const next = document.createElement("button");
+        next.classList.add('button', 'next');
+        next.innerHTML = "<i class='fas fa-chevron-right'></i>";
+
+        prev.addEventListener("click", e => {
+            e.preventDefault();
+            this.updateMonth(this.selectedMonth - 1);
+        });
+
+        next.addEventListener("click", e => {
+            e.preventDefault();
+            this.updateMonth(this.selectedMonth + 1);
+        });
+
+        this.popupContainer.appendChild(prev);
+        this.popupContainer.appendChild(next);
+    }
+
+    populateTable(month, year) {
+        this.table.innerHTML = "";
+
+        const namesRow = document.createElement("tr");
+        ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].forEach(name => {
+            const th = document.createElement("th");
+            th.innerHTML = name;
+            namesRow.appendChild(th);
+        });
+        this.table.appendChild(namesRow);
+
+        const tempDate = new Date(year, month, 1);
+        let firstMonthDay = tempDate.getDay();
+        firstMonthDay = firstMonthDay === 0 ? 7 : tempDate.getDay();
+
+        const daysInMonth = this.getDaysInMonth(month, year);
+        const j = daysInMonth + firstMonthDay - 1;
+
+        let tr = document.createElement("tr");
+
+        if (firstMonthDay-1 !== 0) {
+            tr = document.createElement("tr");
+            this.table.appendChild(tr);
+        }
+
+        for (let i=0; i<firstMonthDay-1; i++) {
+            const td = document.createElement("td");
+            td.innerHTML = "";
+            tr.appendChild(td);
+        }
+
+        for (let i = firstMonthDay-1; i<j; i++) {
+            if(i % 7 === 0){
+                tr = document.createElement("tr");
+                this.table.appendChild(tr);
+            }
+
+            const td = document.createElement("td");
+            td.innerText = i - firstMonthDay + 2;
+            td.dayNr = i - firstMonthDay + 2;
+            td.classList.add("day");
+
+            td.addEventListener("click", e => {
+                const selectedDay = e.target.innerHTML;
+                this.fillInput(selectedDay);
+                this.hideCalendar();
+            });
+
+            tr.appendChild(td);
+        }
+
+        this.popupContainer.appendChild(this.table);
+    }
+
+    fillInput(day) {
+        day = day < 10 ? "0" + day : day;
+        let month = this.selectedMonth < 9 ? "0" + (this.selectedMonth + 1) : this.selectedMonth + 1;
+        this.input.value = `${this.selectedYear}-${month}-${day}`;
+    }
+
+    updateMonth(month) {
+        this.selectedMonth = month;
+        if (this.selectedMonth < 0) {
+            this.selectedYear--;
+            this.selectedMonth = 11;
+        } else if (this.selectedMonth > 11) {
+            this.selectedYear++;
+            this.selectedMonth = 0;
+        }
+        this.monthContainer.innerHTML = `<h4>${this.months[this.selectedMonth]} ${this.selectedYear}</h4>`;
+
+        this.populateTable(this.selectedMonth, this.selectedYear)
+    }
+    
+    getMonth() {
+        return this.months[this.selectedMonth];
+    }
+
+    getYear() {
+        return this.selectedYear;
+    }
+
+    getDaysInMonth(month, year) {
+        return new Date(year, month + 1, 0).getDate();
+    }
+    
+    hideCalendar() {
+        this.form.classList.remove("open");
+    }
+
+    setMainEventListener() {
+        this.input.addEventListener("click", e => {
+            this.form.classList.toggle("open");
+            
+            if(!this.form.classList.contains("open")) {
+                this.hideCalendar();
+            }
+        });
+    }
+}
+
+new Calendar(".date-input");
+</script>
+<br>
+<br>
+</body>
+</html>
